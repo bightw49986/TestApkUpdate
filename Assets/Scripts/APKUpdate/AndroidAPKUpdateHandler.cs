@@ -1,17 +1,13 @@
 ﻿using System;
-using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 
-
 namespace APKUpdate
 {
-    public class AndroidAPKUpdateHandler : IAPKUpdateHandler
+    public class AndroidAPKUpdateHandler : APKUpdateHandlerBase
     {
-        private string FilePath => Path.Combine(Application.persistentDataPath, Application.productName) + ".apk";
-
         private readonly string versionApiUrl;
         private string latestVersion;
 
@@ -20,7 +16,7 @@ namespace APKUpdate
             versionApiUrl = confirmVersionUrl;
         }
 
-        public async Task<bool> CheckVersionUpdate()
+        public override async Task<bool> CheckVersionUpdate()
         {
             var currentVersion = Application.version;
             latestVersion = currentVersion;
@@ -68,49 +64,7 @@ namespace APKUpdate
             }
         }
 
-        public async Task<bool> Download(string downloadUrl)
-        {
-            try
-            {
-                downloadUrl = downloadUrl + "?version=" + latestVersion;
-
-                // 使用 UnityWebRequest 下載文件，並設置使用流式寫入到文件
-                UnityWebRequest request = UnityWebRequest.Get(downloadUrl);
-
-                // 使用流式文件處理器
-                request.downloadHandler = new DownloadHandlerFile(FilePath);
-
-                // 開始下載並等待完成
-                var operation = request.SendWebRequest();
-
-                // 當下載進行中時
-                while (!operation.isDone)
-                {
-                    float progress = request.downloadedBytes;
-                    Debug.Log($"[DOWNLOAD]已下載：{progress}");
-
-                    // 等待一小段時間以打印進度
-                    await Task.Delay(100);
-                }
-
-                // 檢查下載結果
-                if (request.result == UnityWebRequest.Result.Success)
-                {
-                    Debug.Log("[DOWNLOAD]APK 下載完成，存放在: " + FilePath);
-                    return true;
-                }
-
-                Debug.LogError("[DOWNLOAD]下載失敗: " + request.error);
-                return false;
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"[DOWNLOAD]下載過程中發生錯誤: {e.Message}");
-                return false;
-            }
-        }
-
-        public void Install()
+        public override void Install()
         {
             try
             {
@@ -150,7 +104,12 @@ namespace APKUpdate
             }
         }
 
-        [System.Serializable]
+        protected override string ModifyDownloadUrl(string downloadUrl)
+        {
+            return downloadUrl + "?version=" + latestVersion;
+        }
+
+        [Serializable]
         public class VersionResponse
         {
             public int ErrorCode;

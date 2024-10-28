@@ -3,22 +3,22 @@ using UnityEngine;
 
 namespace APKUpdate
 {
-    public class DefaultAPKUpdateHandler : IAPKUpdateHandler
+    public class DefaultAPKUpdateHandler : APKUpdateHandlerBase
     {
-        public async Task<bool> CheckVersionUpdate()
+        public DefaultAPKUpdateHandler(string targetSHA)
+        {
+            TargetSHA = targetSHA;
+        }
+
+        public override async Task<bool> CheckVersionUpdate()
         {
             Debug.Log($"目前版本：{Application.version}，當前平台不是Android，不會執行下載更新apk流程...");
-            return false;
+            return true;
         }
 
-        public async Task<bool> Download(string downloadUrl)
+        public override void Install()
         {
-            return false;
-        }
-
-        public void Install()
-        {
-
+            // Do nothing.
         }
     }
 }

@@ -48,8 +48,8 @@ MonoBehaviour:
   logToScreen: {fileID: 8777018629040713664}
   confirmVersionUrl: http://35.236.150.38/api/confirmVersion.php
   downloadUrl: http://35.236.150.38/api/download.php
-  testShA: b06a8481d702b2345e3cc44d407d8c00da308913c7d6c4891b6b90b162ece64d
-  testDownloadUrl: 
+  testSHA: b06a8481d702b2345e3cc44d407d8c00da308913c7d6c4891b6b90b162ece64d
+  testDownloadUrl: https://raw.githubusercontent.com/bightw49986/TestApkUpdate/master/Assets/StreamingAssets/TestApkInstall.apk
 --- !u!1001 &7369442152709246552
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ namespace APKUpdate
         private string downloadUrl = "http://35.236.150.38/api/download.php";
 
         [SerializeField]
-        private string testShA = "";
+        private string testSHA = "";
 
         [SerializeField]
         private string testDownloadUrl = "";
@@ -36,18 +36,31 @@ namespace APKUpdate
 #if UNITY_ANDROID && !UNITY_EDITOR
             updateHandler = new AndroidAPKUpdateHandler(confirmVersionUrl);
 #else
-            //updateHandler = new DefaultAPKUpdateHandler();
+            downloadUrl = testDownloadUrl;
+            updateHandler = new DefaultAPKUpdateHandler(testSHA);
 #endif
-            updateHandler = new AndroidAPKUpdateHandler(confirmVersionUrl);
 
             var checkUpdate = await updateHandler.CheckVersionUpdate();
             if (checkUpdate)
             {
-                var downloadResult = await updateHandler.Download(downloadUrl);
-                //if (downloadResult)
-                //{
-                //    updateHandler.Install();
-                //}
+                if (!updateHandler.CheckApkExist())
+                {
+                    var downloadResult = await updateHandler.Download(downloadUrl);
+                    if (!downloadResult)
+                    {
+                        Debug.LogError("下載失敗，結束更新流程，進入遊戲");
+                        return;
+                    }
+                }
+
+                if (updateHandler.VerifyApk())
+                {
+                    updateHandler.Install();
+                }
+                else
+                {
+                    
+                }
             }
             logToScreen.enabled = false;
         }

@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256145a54c2690644aab407963cfb829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: C:\Workspace\TestApkUpdate\Assets\StreamingAssets\launcher-debug.apk
+  filePath: C:\Workspace\TestApkUpdate\Assets\StreamingAssets\TestApkInstall.apk
 --- !u!4 &244920694
 Transform:
   m_ObjectHideFlags: 0
