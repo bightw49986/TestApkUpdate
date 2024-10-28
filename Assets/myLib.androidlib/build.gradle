@@ -1,5 +1,10 @@
 apply plugin: 'com.android.library'
 
+afterEvaluate {
+    generateReleaseBuildConfig.enabled = false
+    generateDebugBuildConfig.enabled =false
+}
+
 android {
     compileSdkVersion 32
 

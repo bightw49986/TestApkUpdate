@@ -13,12 +13,12 @@ namespace APKUpdate
         public override async Task<bool> CheckVersionUpdate()
         {
             Debug.Log($"目前版本：{Application.version}，當前平台不是Android，不會執行下載更新apk流程...");
-            return true;
+            return false;
         }
 
         public override void Install()
         {
-            // Do nothing.
+
         }
     }
 }

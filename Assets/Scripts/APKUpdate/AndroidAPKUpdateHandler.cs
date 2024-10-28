@@ -10,6 +10,7 @@ namespace APKUpdate
     {
         private readonly string versionApiUrl;
         private string latestVersion;
+        
 
         public AndroidAPKUpdateHandler(string confirmVersionUrl)
         {
@@ -114,6 +115,7 @@ namespace APKUpdate
         {
             public int ErrorCode;
             public string Version;
+            public string FileHash;
         }
     }
 }

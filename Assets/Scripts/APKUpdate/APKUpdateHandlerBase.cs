@@ -66,6 +66,7 @@ namespace APKUpdate
         {
             try
             {
+                Debug.Log($"[VERIFY_APK]Check apk SHA...");
                 using (FileStream stream = File.OpenRead(FilePath))
                 {
                     // 使用 SHA256 算法
@@ -75,6 +76,8 @@ namespace APKUpdate
                         // 將雜湊值轉換為十六進位字串
                         string fileHash = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
 
+                        Debug.Log($"[VERIFY_APK]FileSHA:{fileHash}");
+                        Debug.Log($"[VERIFY_APK]TargetSHA:{TargetSHA}");
                         return fileHash == TargetSHA;
                     }
                 }
@@ -83,6 +86,15 @@ namespace APKUpdate
             {
                 Debug.LogError($"產生 SHA-256 雜湊值時出現錯誤: {ex.Message}");
                 return false;
+            }
+        }
+
+        public void DeleteApk()
+        {
+            if (File.Exists(FilePath))
+            {
+                File.Delete(FilePath);
+                Debug.Log($"[DELETE_APK]刪除 APK 檔案: {FilePath}");
             }
         }
 

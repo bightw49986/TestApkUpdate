@@ -10,5 +10,6 @@ namespace APKUpdate
         bool VerifyApk();
         void Install();
         string TargetSHA { get; }
+        void DeleteApk();
     }
 }

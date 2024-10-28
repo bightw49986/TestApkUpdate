@@ -41,6 +41,7 @@ namespace APKUpdate
 #endif
 
             var checkUpdate = await updateHandler.CheckVersionUpdate();
+            return;
             if (checkUpdate)
             {
                 if (!updateHandler.CheckApkExist())
@@ -59,8 +60,16 @@ namespace APKUpdate
                 }
                 else
                 {
-                    
+
                 }
+            }
+            else
+            {
+                if (updateHandler.CheckApkExist())
+                {
+                    updateHandler.DeleteApk();
+                }
+                Debug.Log("已經是最新版本，進入遊戲");
             }
             logToScreen.enabled = false;
         }
