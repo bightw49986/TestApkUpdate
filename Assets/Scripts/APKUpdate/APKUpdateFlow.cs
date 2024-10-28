@@ -15,6 +15,13 @@ namespace APKUpdate
         [SerializeField]
         private string downloadUrl = "http://35.236.150.38/api/download.php";
 
+        [SerializeField]
+        private string testShA = "";
+
+        [SerializeField]
+        private string testDownloadUrl = "";
+
+
         private IAPKUpdateHandler updateHandler;
 
 
