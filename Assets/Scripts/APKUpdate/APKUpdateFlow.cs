@@ -41,7 +41,7 @@ namespace APKUpdate
 #endif
 
             var checkUpdate = await updateHandler.CheckVersionUpdate();
-            return;
+
             if (checkUpdate)
             {
                 if (!updateHandler.CheckApkExist())
